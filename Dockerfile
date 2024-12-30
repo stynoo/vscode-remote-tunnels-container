@@ -1,5 +1,9 @@
 FROM alpine:3
 
+LABEL org.opencontainers.image.source=https://github.com/stynoo/vscode-remote-tunnels-container
+LABEL org.opencontainers.image.description="Containerized Implementation of VSCode Remote Tunnel"
+LABEL org.opencontainers.image.licenses=MIT
+
 ENV PROJECT="vscode-tunnels"
 
 RUN apk --no-cache add git
