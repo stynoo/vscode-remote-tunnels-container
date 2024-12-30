@@ -11,7 +11,7 @@ RUN case ${TARGETPLATFORM} in \
          "linux/arm/v7") CLI_OS_PKG="cli-linux-armhf"  ;; \
          *)              CLI_OS_PKG="not-supported"    ;; \
     esac \
- && wget -q https://code.visualstudio.com/sha/download?build=stable&os=${CLI_OS_PKG} -O /tmp/vscode_cli.tar.gz \
+ && wget -q "https://code.visualstudio.com/sha/download?build=stable&os="${CLI_OS_PKG} -O /tmp/vscode_cli.tar.gz \
  && tar -xzf /tmp/vscode_cli.tar.gz -C /usr/bin \
  && chmod +x /usr/bin/code \
  && rm /tmp/vscode_cli.tar.gz
