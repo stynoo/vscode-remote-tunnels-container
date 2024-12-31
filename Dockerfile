@@ -22,6 +22,5 @@ RUN adduser -D $PROJECT \
 
 USER $PROJECT
 WORKDIR $PROJECT_DIR
-VOLUME $PROJECT_DIR
 
 ENTRYPOINT ["code", "tunnel", "--accept-server-license-terms", "--disable-telemetry"]
