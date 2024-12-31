@@ -73,10 +73,15 @@ jobs:
           annotations: ${{ steps.meta.outputs.annotations }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          load: true
-      - name: Push Docker image to GHCR
-        if: startsWith(github.ref, 'refs/tags/')  # only trigger on tag pushes
-        run: docker push -a ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          provenance: false
+      - name: Push Docker image
+        id: push
+        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6.10.0
+        with:
+          context: .
+          push: ${{ startsWith(github.ref, 'refs/tags/') }}  # only upload to ghcr on tag pushes
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # Sign the resulting Docker image digest.
       # This will only write to the public Rekor transparency log when the Docker
