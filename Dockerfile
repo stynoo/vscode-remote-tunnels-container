@@ -1,7 +1,7 @@
 FROM alpine:3
 
-ENV PROJECT="vscode-tunnels" \
-    PROJECT_DIR="/home/${PROJECT}"
+ENV PROJECT="vscode-tunnels"
+ENV PROJECT_DIR="/home/${PROJECT}"
 
 RUN apk --no-cache add git
 
