@@ -3,7 +3,7 @@ FROM alpine:3
 ENV PROJECT="vscode-tunnels"
 ENV PROJECT_DIR="/home/${PROJECT}"
 
-RUN apk --no-cache add git
+RUN apk --no-cache add git libstdc++6 libstdc++
 
 ARG TARGETPLATFORM
 RUN case ${TARGETPLATFORM} in \
@@ -24,4 +24,4 @@ USER $PROJECT
 WORKDIR $PROJECT_DIR
 VOLUME $PROJECT_DIR
 
-ENTRYPOINT ["code", "tunnel", "service", "install", "--accept-server-license-terms", "--disable-telemetry"]
+ENTRYPOINT ["code", "tunnel", "--accept-server-license-terms", "--disable-telemetry"]
