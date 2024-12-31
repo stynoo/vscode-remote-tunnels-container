@@ -3,7 +3,9 @@ FROM alpine:3
 ENV PROJECT="vscode-tunnels"
 ENV PROJECT_DIR="/home/${PROJECT}"
 
-RUN apk --no-cache add git libstdc++
+VOLUME $PROJECT_DIR
+
+RUN apk --no-cache add sudo git libstdc++
 
 ARG TARGETPLATFORM
 RUN case ${TARGETPLATFORM} in \
@@ -18,7 +20,9 @@ RUN case ${TARGETPLATFORM} in \
     && rm /tmp/vscode_cli.tar.gz
 
 RUN adduser -D $PROJECT \
-    && chown -R $PROJECT:$PROJECT $PROJECT_DIR
+        && echo "$PROJECT ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$PROJECT \
+        && chmod 0440 /etc/sudoers.d/$PROJECT \
+        && chown -R $PROJECT:$PROJECT $PROJECT_DIR
 
 USER $PROJECT
 WORKDIR $PROJECT_DIR
