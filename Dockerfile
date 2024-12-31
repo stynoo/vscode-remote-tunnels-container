@@ -3,7 +3,7 @@ FROM alpine:3
 ENV PROJECT="vscode-tunnels"
 ENV PROJECT_DIR="/home/${PROJECT}"
 
-RUN apk --no-cache add git libstdc++6 libstdc++
+RUN apk --no-cache add git libstdc++
 
 ARG TARGETPLATFORM
 RUN case ${TARGETPLATFORM} in \
