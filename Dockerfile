@@ -1,6 +1,9 @@
 FROM ubuntu:24.04
 
-ENV PROJECT="vscode-tunnels"
+ARG PROJECT="vscode-tunnels"
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
 ENV PROJECT_DIR="/home/${PROJECT}"
 
 VOLUME $PROJECT_DIR
@@ -25,7 +28,8 @@ RUN case ${TARGETPLATFORM} in \
     && chmod +x /usr/bin/code \
     && rm /tmp/vscode_cli.tar.gz
 
-RUN adduser -D $PROJECT \
+RUN groupadd --gid $USER_GID $PROJECT \
+    && useradd --uid $USER_UID --gid $USER_GID -m $PROJECT \
     && echo "$PROJECT ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$PROJECT \
     && chmod 0440 /etc/sudoers.d/$PROJECT \
     && chown -R $PROJECT:$PROJECT $PROJECT_DIR
