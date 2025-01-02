@@ -9,7 +9,7 @@ ENV PROJECT_DIR="/home/${PROJECT}"
 VOLUME $PROJECT_DIR
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    sudo \
+    adduser sudo \
     tzdata \
     git \
     wget curl ca-certificates \
