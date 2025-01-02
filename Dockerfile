@@ -34,9 +34,10 @@ RUN groupmod --new-name $PROJECT ubuntu || true \
     && usermod --login $PROJECT ubuntu || true \
     && groupadd --gid $USER_GID $PROJECT || true \
     && useradd --uid $USER_UID --gid $USER_GID -m $PROJECT || true \
+    && mkdir -p $PROJECT_DIR || true \
+    && chown -R $PROJECT:$PROJECT $PROJECT_DIR \
     && echo "$PROJECT ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$PROJECT \
-    && chmod 0440 /etc/sudoers.d/$PROJECT \
-    && chown -R $PROJECT:$PROJECT $PROJECT_DIR
+    && chmod 0440 /etc/sudoers.d/$PROJECT
 
 USER $PROJECT
 WORKDIR $PROJECT_DIR
