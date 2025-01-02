@@ -29,11 +29,11 @@ RUN case ${TARGETPLATFORM} in \
     && rm /tmp/vscode_cli.tar.gz
 
 
-
-RUN groupmod --new-name $PROJECT ubuntu || true \                    # I KNOW
-    && usermod --login $PROJECT ubuntu || true \                     # This is not the way
-    && groupadd --gid $USER_GID $PROJECT || true \                   # But doing it anyways
-    && useradd --uid $USER_UID --gid $USER_GID -m $PROJECT || true \ # It just works
+# I KNOW ... This is not the way ... But doing it anyways ... It just works
+RUN groupmod --new-name $PROJECT ubuntu || true \
+    && usermod --login $PROJECT ubuntu || true \
+    && groupadd --gid $USER_GID $PROJECT || true \
+    && useradd --uid $USER_UID --gid $USER_GID -m $PROJECT || true \
     && echo "$PROJECT ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$PROJECT \
     && chmod 0440 /etc/sudoers.d/$PROJECT \
     && chown -R $PROJECT:$PROJECT $PROJECT_DIR
