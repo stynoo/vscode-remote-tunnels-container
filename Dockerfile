@@ -10,10 +10,9 @@ VOLUME $PROJECT_DIR
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo \
+    tzdata \
     git \
     wget curl ca-certificates \
-    dbus-user-session \
-    tzdata \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 ARG TARGETPLATFORM
@@ -39,4 +38,4 @@ RUN deluser --remove-home ubuntu || true \
 USER $PROJECT
 WORKDIR $PROJECT_DIR
 
-ENTRYPOINT ["code", "tunnel", "service", "install", "--accept-server-license-terms", "--disable-telemetry"]
+ENTRYPOINT ["code", "tunnel", "--accept-server-license-terms"]
