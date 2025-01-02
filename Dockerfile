@@ -28,7 +28,7 @@ RUN case ${TARGETPLATFORM} in \
     && chmod +x /usr/bin/code \
     && rm /tmp/vscode_cli.tar.gz
 
-RUN deluser --remove-all-files ubuntu || true \
+RUN deluser --remove-home ubuntu || true \
     deluser --group ubuntu || true \
     && groupadd --gid $USER_GID $PROJECT || true \
     && useradd --uid $USER_UID --gid $USER_GID -m $PROJECT -d $PROJECT_DIR \
