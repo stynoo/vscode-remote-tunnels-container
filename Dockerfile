@@ -28,13 +28,10 @@ RUN case ${TARGETPLATFORM} in \
     && chmod +x /usr/bin/code \
     && rm /tmp/vscode_cli.tar.gz
 
-
-# I KNOW ... This is not the way ... But doing it anyways ... It just works
-RUN groupmod --new-name $PROJECT ubuntu || true \
-    && usermod --login $PROJECT ubuntu || true \
+RUN deluser --remove-all-files ubuntu || true \
+    deluser --group ubuntu || true \
     && groupadd --gid $USER_GID $PROJECT || true \
-    && useradd --uid $USER_UID --gid $USER_GID -m $PROJECT || true \
-    && mkdir -p $PROJECT_DIR || true \
+    && useradd --uid $USER_UID --gid $USER_GID -m $PROJECT -d $PROJECT_DIR \
     && chown -R $PROJECT:$PROJECT $PROJECT_DIR \
     && echo "$PROJECT ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$PROJECT \
     && chmod 0440 /etc/sudoers.d/$PROJECT
