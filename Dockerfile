@@ -8,7 +8,7 @@ VOLUME $PROJECT_DIR
 RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo \
     git \
-    ca-certificates \
+    wget curl ca-certificates \
     dbus-user-session \
     tzdata \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
